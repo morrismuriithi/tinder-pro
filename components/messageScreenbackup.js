@@ -9,7 +9,6 @@ import ReceiverMessage from './ReceiverMessage';
 import { addDoc, collection, onSnapshot, query, serverTimestamp, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 
-
 const MessageScreen = () => {
   const { params } = useRoute();
   const { matchDetails, } = params;
@@ -26,7 +25,6 @@ const MessageScreen = () => {
   const authUser = authentication.currentUser?.email
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
- 
   const sendMessage = () => { 
     addDoc(collection(db, "matches", matchDetails.id, "messages"), {
       timestamp: serverTimestamp(),
@@ -59,12 +57,11 @@ const MessageScreen = () => {
              
             renderItem={({ item: message }) =>
               message.userId === authUser ? (
-                <SenderMessage key={message.id} message={message} />
+                <SenderMessage key={message.id} message={message }/>
               ) : (
-                  <ReceiverMessage key={message.id} message={message } />
+                  <ReceiverMessage key={message.id} message={message }/>
           )
           }
-           
           />
 
         </TouchableWithoutFeedback>
@@ -113,6 +110,4 @@ const styles = StyleSheet.create({
     fontSize:25,
   },
 })
-
-
 
